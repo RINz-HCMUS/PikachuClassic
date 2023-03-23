@@ -113,12 +113,18 @@ std::vector<std::pair<int,int>> Board::findPath(std::pair<int,int> start, std::p
 	const int dy[4] = {0, 1, 0, -1};
 	std::deque<std::pair<int,int>> q;
 	
+	// nâng tọa độ của start và end lên 1
+	start.first += 1; 
+	start.second += 1;
+	end.first += 1;
+	end.second += 1;
+	
 	// khởi tạo mảng lưu đường đi
 	std::vector<std::vector<std::pair<int,int>>> trace(n_row + 2, std::vector<std::pair<int,int>>(n_column + 2, std::make_pair(-1,-1)));
 	trace[start.first][start.second] = {-2, -2};
 	
 	extra_board[start.first][start.second] = 0;
-	extra_board[start.first][start.second] = 0;
+	extra_board[end.first][end.second] = 0;
 	
 	q.push_back(start);
 	while(!q.empty())
@@ -132,9 +138,9 @@ std::vector<std::pair<int,int>> Board::findPath(std::pair<int,int> start, std::p
 		{
 			int nx = cur.first + dx[i];
 			int ny = cur.second + dy[i];
-			while (0 <= nx && nx <= n_row + 2 && 0 <= ny && ny < n_column + 2 && extra_board[nx][ny] == 0)
+			while (0 <= nx && nx < n_row + 2 && 0 <= ny && ny < n_column + 2 && extra_board[nx][ny] == 0)
 			{
-				if (trace[nx][ny].first != -1)
+				if (trace[nx][ny].first == -1)
 				{
 					q.push_back({nx, ny});	
 					trace[nx][ny] = cur;				
