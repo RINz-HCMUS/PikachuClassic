@@ -20,10 +20,10 @@ void NoobMode::NoobPlay(){
 	 	
     SettingGame::clearConsole();
     SettingGame::setColor(BLACK, WHITE);
-    A.drawBoard();
+    A.drawBoard(1);
 
     SettingGame::setColor(BLACK, GREEN);
-    A.drawCells(A._board[0][0], 0, 0);
+    A.drawCells(A._board[0][0], 0, 0, 1);
     SettingGame::setColor(BLACK, WHITE);
     
     while(CompleteCells != row * col){
@@ -121,7 +121,7 @@ void NoobMode::NoobPlay(){
                 }
                 else if(choose && A._board[X][Y] != -1){
                     SettingGame::setColor(BLACK, RED);
-                    A.drawCells(A._board[X][Y], X, Y);
+                    A.drawCells(A._board[X][Y], X, Y, 1);
                     std::vector<std::pair<int,int>> Path;
                     if((Xchoose != X || Ychoose != Y) && A.Board::canConnect(std::make_pair(X, Y), std::make_pair(Xchoose, Ychoose), Path)){
 						sound::correct();
@@ -149,11 +149,11 @@ void NoobMode::NoobPlay(){
                     SettingGame::setColor(BLACK, WHITE);
                     SettingGame::clearConsole();
                     SettingGame::setColor(BLACK, WHITE);
-                    A.drawBoard();
+                    A.drawBoard(1);
                     SettingGame::setColor(BLACK, WHITE);
-                    A.drawCells(A._board[oldX][oldY], oldX, oldY);
+                    A.drawCells(A._board[oldX][oldY], oldX, oldY, 1);
                     SettingGame::setColor(BLACK, GREEN);				// Ô đang tr
-                    A.drawCells(A._board[X][Y], X, Y);
+                    A.drawCells(A._board[X][Y], X, Y, 1);
                     oldX = X;
                     oldY = Y;
                 }
@@ -169,16 +169,16 @@ void NoobMode::NoobPlay(){
             case KEY_SUGGEST:{
             	A.Board::suggestBoard(p, q);
             	SettingGame::setColor(BLACK, YELLOW);
-            	A.drawCells(A._board[p.first][p.second], p.first, p.second);
+            	A.drawCells(A._board[p.first][p.second], p.first, p.second, 1);
             	SettingGame::setColor(BLACK, YELLOW);
-				A.drawCells(A._board[q.first][q.second], q.first, q.second);
+				A.drawCells(A._board[q.first][q.second], q.first, q.second, 1);
 				SettingGame::setColor(BLACK, WHITE);
 				break;
 			}
 			
 			case KEY_SHUFFLE:{
 				A.Board::suffleBoard();
-				A.drawBoard();
+				A.drawBoard(1);
 				break;
 			}
         }
@@ -188,18 +188,18 @@ void NoobMode::NoobPlay(){
             SettingGame::setColor(BLACK, WHITE);
             //SettingGame::clearConsole();
             SettingGame::setColor(BLACK, WHITE);
-            A.drawBoard();
+            A.drawBoard(1);
             SettingGame::setColor(BLACK, WHITE);
-            A.drawCells(A._board[oldX][oldY], oldX, oldY);
+            A.drawCells(A._board[oldX][oldY], oldX, oldY, 1);
             SettingGame::setColor(BLACK, GREEN);				// Ô đang trỏ vào
-            A.drawCells(A._board[X][Y], X, Y);
+            A.drawCells(A._board[X][Y], X, Y, 1);
             oldX = X;
             oldY = Y;
         }
 
         if(choose){
             SettingGame::setColor(BLACK, RED);				// Ô đang được chọn
-            A.drawCells(A._board[Xchoose][Ychoose], Xchoose, Ychoose);
+            A.drawCells(A._board[Xchoose][Ychoose], Xchoose, Ychoose, 1);
             SettingGame::setColor(BLACK, WHITE);
         }
         Sleep(50);
