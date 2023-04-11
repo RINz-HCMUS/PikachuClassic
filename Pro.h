@@ -13,7 +13,7 @@ struct ProMode{
 	//Player player;
     
 	/// Hàm thực thi
-    static void ProPlay();
+    static void ProPlay(account&);
 	
 };
 #endif // PROMODE_H

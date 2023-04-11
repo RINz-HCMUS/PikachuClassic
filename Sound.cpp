@@ -9,7 +9,7 @@ void sound::correct(){
 }
 
 void sound::leaderboard(){
-		PlaySound(TEXT("sounds\\leaderboard.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("sounds\\leaderboard.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void sound::start(){
@@ -19,5 +19,9 @@ void sound::wrong(){
 	PlaySound(TEXT("sounds\\wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 void sound::victory(){
-		PlaySound(TEXT("sounds\\win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("sounds\\win.wav"), NULL, SND_FILENAME | SND_SYNC);
+}
+
+void sound::off(){
+	PlaySound(NULL, NULL, 0);	
 }

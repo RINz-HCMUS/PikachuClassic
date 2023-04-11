@@ -1,0 +1,55 @@
+# Project: Project2
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = Board.o Board2.o Custom.o main.o Menu.o Noob.o Pro.o SettingGame.o Sound.o BG.o
+LINKOBJ  = Board.o Board2.o Custom.o main.o Menu.o Noob.o Pro.o SettingGame.o Sound.o BG.o
+LIBS     = -L"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc -lwinmm
+INCS     = -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files/EmbarcaderoDev/Cpp/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = Pikapika104.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+DEL      = C:\Program Files\EmbarcaderoDev\Cpp\Dev-Cpp\DevCpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+Board.o: Board.cpp
+	$(CPP) -c Board.cpp -o Board.o $(CXXFLAGS)
+
+Board2.o: Board2.cpp
+	$(CPP) -c Board2.cpp -o Board2.o $(CXXFLAGS)
+
+Custom.o: Custom.cpp
+	$(CPP) -c Custom.cpp -o Custom.o $(CXXFLAGS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Menu.o: Menu.cpp
+	$(CPP) -c Menu.cpp -o Menu.o $(CXXFLAGS)
+
+Noob.o: Noob.cpp
+	$(CPP) -c Noob.cpp -o Noob.o $(CXXFLAGS)
+
+Pro.o: Pro.cpp
+	$(CPP) -c Pro.cpp -o Pro.o $(CXXFLAGS)
+
+SettingGame.o: SettingGame.cpp
+	$(CPP) -c SettingGame.cpp -o SettingGame.o $(CXXFLAGS)
+
+Sound.o: Sound.cpp
+	$(CPP) -c Sound.cpp -o Sound.o $(CXXFLAGS)
+
+BG.o: BG.cpp
+	$(CPP) -c BG.cpp -o BG.o $(CXXFLAGS)

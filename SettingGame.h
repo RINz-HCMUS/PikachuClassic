@@ -72,7 +72,7 @@ struct SettingGame{
     static void disableMaximize();
 
     /// Hàm vô hiệu hóa con trỏ chuột
-    static void disableMouseInput();
+    static void setCursorInput(bool);
 
     /// Hàm lấy giá trị từ bàn phím
     static int getConsoleInput();
@@ -82,6 +82,9 @@ struct SettingGame{
 	
 	/// Hàm căn giữa màn hình
 	static void setCenterConsole();
+	
+	/// Hàm căn chỉnh font chữ
+	static void setFontInfo();
 	
 	/// Hàm giảm tốc độ xử lý
 	static void Slow(int);

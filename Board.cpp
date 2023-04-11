@@ -1,9 +1,6 @@
 #include "Board.h"
 
-
-//////////////////////////////////////////////
 // constructor và destructor
-
 Board::Board(int _n_row, int _n_column, int _n_type)
 {
 	n_row = _n_row;
@@ -26,11 +23,11 @@ Board::~Board()
 	for (int i = 0; i < n_row; i++)
 		delete [] _board[i];
 	delete [] _board;
+	return;
 }
 
-//////////////////////////////////////////////
-// Các hàm lấy giá trị
 
+// Các hàm lấy giá trị
 int Board::getnRow()
 {
 	return n_row;
@@ -45,9 +42,9 @@ int Board::getCell(int _x, int _y)
 {
 	return _board[_x][_y];
 }
-//////////////////////////////////////////////
-// Các hàm thực thi
 
+
+// Các hàm thực thi
 void Board::removeCell(int _x, int _y)
 {
 	// Khi xóa bỏ 1 ô nào đó thì đặt giá trị ô đó là -1
@@ -63,7 +60,6 @@ void Board::setCell(int _x, int _y, int type)
 void Board::initBoard(int _n_row, int _n_column, int _n_type)
 {
 	// tham khảo từ PhVanMin "https://github.com/PhVanMin/Pikachuuu/blob/master/NormalMode.cpp"
-
 	srand((unsigned int)time(NULL));
 	int n_flag = _n_row *_n_column / 2;
 	while (n_flag--)
@@ -98,8 +94,8 @@ void Board::suffleBoard()
 		for (int j = 0; j < n_column; j++)
 			mark[i][j] = 0;
 
+	// nếu số ký tự mỗi loại
 	int type;
-
 	for (int i = 0; i < n_row; i++)
 	{
 		for (int j = 0; j < n_column; j++)
@@ -112,7 +108,8 @@ void Board::suffleBoard()
 
 		}
 	}
-
+	
+	// random vị trí của bảng nếu vị trí đó chưa được chọn thì gán giá trị mới cho nó 
 	int x, y;
 	srand((unsigned int)time(NULL));
 	for (int i = 0; i < n_type; i++)
@@ -129,6 +126,7 @@ void Board::suffleBoard()
 			}
 		}
 	}
+	
 	delete [] count;
 	for (int i = 0; i < n_row; i++)
 		delete [] mark[i];
@@ -137,7 +135,8 @@ void Board::suffleBoard()
 
 void Board::suggestBoard(std::pair <int,int> &start, std::pair <int,int> &end)
 {
-    std::vector<std::pair<int,int> > Path;
+	// Xét từng cặp 2 ô trong bảng xem có thể nối với nhau được không sau đó gán vào start và end
+    std::vector<std::pair<int,int> > Path; 
 	for (int i = 0; i < n_row; i++)
 	{
 		for (int j = 0; j < n_column; j++)
@@ -147,9 +146,9 @@ void Board::suggestBoard(std::pair <int,int> &start, std::pair <int,int> &end)
 				continue;
 			else
 			{
-				for (int ii = i; ii < n_row; ii++)
+				for (int ii = 0; ii < n_row; ii++)
 				{
-					for (int jj = j; jj < n_column; jj++)
+					for (int jj = 0; jj < n_column; jj++)
 					{
 						end = {ii, jj};
 						if (start == end) continue;
@@ -178,6 +177,7 @@ void Board::removeBoard_1(std::pair <int,int> start, std::pair <int,int> end)
 
 	if (start.first == end.first && start.second > end.second)
 		std::swap(start, end);
+		
 	// thụt qua trái
 	for (int i = end.second; i < n_column - 1; i++)
 		_board[end.first][i] = _board[end.first][i+1];
@@ -195,6 +195,7 @@ void Board::removeBoard_2(std::pair <int,int> start, std::pair <int,int> end)
 
 	if (start.second == end.second && start.first > end.first)
 		std::swap(start, end);
+		
 	// thụt lên trên
 	for (int i = end.first; i < n_row - 1; i++)
 		_board[i][end.second] = _board[i+1][end.second];
@@ -244,10 +245,7 @@ void Board::removeBoard_4(std::pair <int,int> start, std::pair <int,int> end)
 }
 
 
-
-//////////////////////////////////////////
 // Hàm kiểm tra logic game
-
 bool Board::canConnect(std::pair<int,int> start, std::pair<int,int> end, std::vector<std::pair<int,int> > &path)
 {
 	if (start == end) return false;
@@ -255,81 +253,116 @@ bool Board::canConnect(std::pair<int,int> start, std::pair<int,int> end, std::ve
 		return false;
 
     path = Board::findPath(start, end);
-
-	if (2 <= path.size() && path.size() <= 4) return true;
+	// do hàm path trả về các ô tại những lần đổi hướng và 2 đầu mút
+	// do đó nếu số lượng của path là 2, 3, 4 thì 2 ô nối với nhau hợp lệ
+	if (2 <= path.size() && path.size() <= 4) return true; 
 	return false;
 }
 
 std::vector<std::pair<int,int>> Board::findPath(std::pair<int,int> start, std::pair<int,int> end)
 {
-
 	// thảm khảo từ nguồn "https://codelearn.io/sharing/huong-dan-lam-game-bang-cocos2d-x-phan-2"
-	std::vector<std::vector<int>> extra_board(n_row + 2, std::vector<int>(n_column + 2, -1));
+
+	// nâng tọa độ của start và end lên 1 do trong bảng mới các vị trí của mảng cũ tăng 1
+	start.first += 1;
+	start.second += 1;
+	end.first += 1;
+	end.second += 1;
+	
+	// khởi tạo mảng bao lên extra_board[n_row+2][n_column+2]
+	int **extra_board = new int*[n_row + 2];
+	for (int i = 0; i < n_row + 2; i++)
+		extra_board[i] = new int [n_column + 2];
+	for (int i = 0; i < n_row + 2; i++)
+		for (int j = 0; j < n_column + 2;j++)	
+			extra_board[i][j] = -1;
 	for (int i = 0; i < n_row; i++)
 		for (int j = 0; j < n_column;j++)
 		{
 			if (_board[i][j] != -1)
 				extra_board[i+1][j+1] = _board[i][j];
 		}
+		
 	// BFS
+	// 2 mảng const thể hiện 4 hướng di chuyển trên bảng
 	const int dx[4] = {-1, 0, 1, 0};
 	const int dy[4] = {0, 1, 0, -1};
-	std::deque<std::pair<int,int>> q;
+	
 
-	// nâng tọa độ của start và end lên 1
-	start.first += 1;
-	start.second += 1;
-	end.first += 1;
-	end.second += 1;
 
-	// khởi tạo mảng lưu đường đi
-	std::vector<std::vector<std::pair<int,int>>> trace(n_row + 2, std::vector<std::pair<int,int>>(n_column + 2, std::make_pair(-1,-1)));
-	trace[start.first][start.second] = {-2, -2};
+	// khởi tạo mảng backtrack đường đi
+	std::pair<int,int> **trace = new std::pair<int,int> *[n_row + 2];
+	for (int i = 0; i < n_row + 2; i++)
+		trace[i] = new std::pair<int,int> [n_column + 2];
+	for (int i = 0; i < n_row + 2; i++)
+		for (int j = 0; j < n_column + 2;j++)
+			trace[i][j] = {-1, -1};
+			
+	// Đặt giá trị ban đầu của start = {-2,-2} để đánh dấu vị trí bắt đầu tìm được đường đi khi quay ngược lại
+	trace[start.first][start.second] = {-2, -2}; 
 
+	// Cho 2 ô start và end có thể đi được
 	extra_board[start.first][start.second] = -1;
 	extra_board[end.first][end.second] = -1;
 
+	std::deque<std::pair<int,int>> q;
 	q.push_back(start);
 	while(!q.empty())
 	{
 		std::pair<int,int> cur = q.front();
 		q.pop_front();
 
-		if (cur == end) break;
+		if (cur == end) break;// Nếu có đường đi tới ô end thì thoát vòng while
 
 		for (int i = 0; i < 4; i++)
 		{
 			int nx = cur.first + dx[i];
 			int ny = cur.second + dy[i];
+			// nếu vị trí mới (nx, ny) nằm trong bảng extra_board và ô (nx, ny) có thể đi được thì lặp vòng while)
 			while (0 <= nx && nx < n_row + 2 && 0 <= ny && ny < n_column + 2 && extra_board[nx][ny] == -1)
 			{
+				// nếu ô (nx, ny) chưa được đi tới thì tiếp tục
 				if (trace[nx][ny].first == -1)
 				{
 					q.push_back({nx, ny});
 					trace[nx][ny] = cur;
 				}
+				// tiếp tục đi tới theo cho tới khi không đi được nữa 
 				nx += dx[i];
 				ny += dy[i];
 			}
 		}
 	}
+	
 	// Tìm đường đi
-
 	std::pair<int,int> cur = end;
 	std::vector<std::pair<int,int>> res;
+	// nếu mà có đường đi tới end vì thực hiện
 	if (trace[end.first][end.second].first != -1)
 	{
-		while (cur.first != -2)
+		// thực hiện tới khi cur = start do start.first = -2;
+		while (cur.first != -2) 
 		{
 			res.push_back({cur.first - 1, cur.second - 1});
 			cur = trace[cur.first][cur.second];
 		}
 	}
+	
+	for (int i = 0; i < n_row + 2; i++)
+	{
+		delete [] extra_board[i];	
+		delete [] trace[i];	
+	}
+	delete [] extra_board;
+	delete [] trace;
+	
 	return res;
 }
 
 bool Board::checkBoard()
-{
+{	
+	// kiểm tra từng cặp 2 ô xem nó có thể nối với nhau không 
+	// nếu có thì trả về true
     std::vector<std::pair<int,int> > Path;
 	std::pair <int,int> start, end;
 	for (int i = 0; i < n_row; i++)
@@ -341,9 +374,9 @@ bool Board::checkBoard()
 				continue;
 			else
 			{
-				for (int ii = i; ii < n_row; ii++)
+				for (int ii = 0; ii < n_row; ii++)
 				{
-					for (int jj = j; jj < n_column; jj++)
+					for (int jj = 0; jj < n_column; jj++)
 					{
 						end = {ii, jj};
 						if (start == end) continue;
@@ -358,7 +391,7 @@ bool Board::checkBoard()
 }
 
 
-void Board::drawCells(int type, int y, int x){
+void Board::drawCells(int type, int y, int x, bool isVisible){
     if(type == -1)
         return;
 	
@@ -371,34 +404,31 @@ void Board::drawCells(int type, int y, int x){
         for(int j = 0; j < ColCell; j++){
             if((i == 0 || i == RowCell - 1) && j != 0 && j != ColCell -1){
                 SettingGame::gotoXY(x * ColCell + j + left, y * RowCell + i + top);
-//                std::cout << "-";
 				putchar('-');
             }
 
             else if((j == 0 || j == ColCell - 1) && i != 0 && i != RowCell - 1){
                 SettingGame::gotoXY(x * ColCell + j + left, y * RowCell + i + top);
-//                std::cout << "|";
 				putchar('|');
             }
             else{
                 SettingGame::gotoXY(x * ColCell + j + left, y * RowCell + i + top);
-//                std::cout << " ";
                 putchar(' ');
             }
         }
     SettingGame::gotoXY(x * ColCell + ColCell / 2 + left, y * RowCell + RowCell / 2 + top);
     SettingGame::setColor(BLACK, textcolor);
-	
-	putchar(type + 32);
+	if (isVisible)
+		putchar(type + 32);
 	SettingGame::setColor(BLACK, WHITE);
     
 }
 
-void Board::drawBoard(){
+void Board::drawBoard(bool isVisible){
         SettingGame::setColor(BLACK, WHITE);
         for(int i = 0; i < n_row; i++){
             for(int j = 0; j < n_column; j++)
-                drawCells(_board[i][j], i, j);
+                drawCells(_board[i][j], i, j, isVisible);
         }
 }
 
@@ -418,7 +448,6 @@ void Board::drawLine(std::vector<std::pair<int,int>> path)
 			{
 				SettingGame::gotoXY(left + start.second * ColCell + (ColCell/2) + j, top + start.first * RowCell + (RowCell/2));
 				SettingGame::setColor(BLACK, RED);
-//				std::cout << "*";
 				putchar('*');
 			}
 		}
@@ -432,7 +461,6 @@ void Board::drawLine(std::vector<std::pair<int,int>> path)
 			{
 				SettingGame::gotoXY(left + start.second * ColCell + (ColCell/2), top + start.first * RowCell + (RowCell/2) + j);
 				SettingGame::setColor(BLACK, RED);
-//				std::cout << "*";
 				putchar('*');			
 			}
 		}

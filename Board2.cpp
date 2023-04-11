@@ -65,6 +65,8 @@ void Node::setPos(Node* &pHead, int data, int pos)
 }
 void Node::removePos(Node* &pHead, int pos)
 {
+	if(pHead == NULL)
+		return;
 	if (pos == 0)
 	{
 		Node* tmp = pHead;
@@ -121,7 +123,7 @@ Board2::~Board2()
 		_board2[i]->removeAll(_board2[i]);
 		delete _board2[i];		
 	}
-	delete _board2;
+	delete [] _board2;
 }
 
 // Các hàm trả về giá trị
@@ -240,9 +242,9 @@ void Board2::suggestBoard(std::pair <int,int> &start, std::pair <int,int> &end)
 				continue;
 			else
 			{
-				for (int ii = i; ii < n_row; ii++)
+				for (int ii = 0; ii < n_row; ii++)
 				{
-					for (int jj = j; jj < n_column; jj++)
+					for (int jj = 0; jj < n_column; jj++)
 					{
 						end = {ii, jj};
 						if (start == end) continue;
@@ -354,9 +356,9 @@ bool Board2::checkBoard()
 				continue;
 			else
 			{
-				for (int ii = i; ii < n_row; ii++)
+				for (int ii = 0; ii < n_row; ii++)
 				{
-					for (int jj = j; jj < n_column; jj++)
+					for (int jj = 0; jj < n_column; jj++)
 					{
 						end = {ii, jj};
 						if (start == end) continue;

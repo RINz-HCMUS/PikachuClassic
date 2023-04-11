@@ -2,7 +2,7 @@
 #include "SettingGame.h"
 #include <MMSystem.h>
 #include <stdio.h>
-#pragma comment(lib, "winmm.lib")
+//#pragma comment(lib, "winmm.lib")
 #include <iostream>
 struct sound{
 	static void choose();
@@ -16,4 +16,6 @@ struct sound{
 	static void wrong();
 	
 	static void victory();
+	
+	static void off();
 };

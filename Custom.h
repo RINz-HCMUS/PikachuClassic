@@ -13,7 +13,7 @@ struct CustomMode{
 	//Player player;
     
 	/// Hàm thực thi
-    static void CustomPlay(int, int);
+    static void CustomPlay(int, int, account&m, int, int);
 	
 };
 #endif // CUSTOMMODE_H

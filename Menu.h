@@ -1,13 +1,46 @@
 #pragma once
 
 #include "SettingGame.h"
-#include "Noob.h"
-#include "Pro.h"
-#include "Custom.h"
+
 #include "Sound.h"
 #include <fstream>
 #include <cstring>
+
 using namespace std;
+
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
+
+struct account{
+    char Name[16];
+    char Pass[16];
+    int Mode;
+    int Score;
+    int pokemon[152];
+    // Ham gan struct
+    account& operator=(const account& other) {
+        strcpy(Name, other.Name);
+        strcpy(Pass, other.Pass);
+        Mode = other.Mode;
+        Score = other.Score;
+        for(int i = 0; i < 152; i++)
+        	pokemon[i] = other.pokemon[i];
+        return *this;
+    }
+};
+
+#endif	// ACCOUNT_H
+
+
+#include "Noob.h"
+#include "Pro.h"
+#include "Custom.h"
+
+
+
+
+
+
 #ifndef MENU_H
 #define MENU_H
 
@@ -24,7 +57,7 @@ struct Menu{
 	void printButton(int, int, int, int, COORD);
 
 	// In ra Menu
-	void printMenu();
+	void printMenu(account&);
 
 	// In phần Hướng dẫn chơi
 	void printTutorial();
@@ -39,10 +72,13 @@ struct Menu{
 	void printAboutGame();
 
 	// In menu mức độ game
-	void printGameMode();
+	void printGameMode(account&);
+	
+	void printLOGIN();
 	
 	// In ra menu CustomMode
-	void printCustomMode();
+	void printCustomMode(account&);
+
 	// In tên game
 	void printLogo();
 	
@@ -54,15 +90,3 @@ struct Menu{
 
 #endif // MENU_H
 
-#ifndef PLAYER_H
-#define PLAYER_H
-
-struct Player{
-	std::string name;
-	std::string password;
-	int score;
-	int mode; // độ khó
-	//std::string atTime; // thời gian lúc hoàn thành trò chơi
-};
-
-#endif	// PLAYER_H

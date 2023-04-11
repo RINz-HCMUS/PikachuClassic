@@ -6,57 +6,129 @@ const string Menu::optionPlay[4] = {"NOOB", "PRO ", "CUSTOM", "BACK"};
 
 const string Menu::optionCustom[4] = {"ROW", "COLUNM", "PLAY", "BACK"};
 
+void Menu::printLOGIN(){
+	SettingGame::clearConsole();
+	SettingGame::setColor(BLACK, WHITE);
+    cout << R"(
+    
+   /$$      /$$ /$$$$$$$$ /$$        /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$
+  | $$  /$ | $$| $$_____/| $$       /$$__  $$ /$$__  $$| $$$    /$$$| $$_____/      |__  $$__//$$__  $$
+  | $$ /$$$| $$| $$      | $$      | $$  \__/| $$  \ $$| $$$$  /$$$$| $$               | $$  | $$  \ $$
+  | $$/$$ $$ $$| $$$$$   | $$      | $$      | $$  | $$| $$ $$/$$ $$| $$$$$            | $$  | $$  | $$
+  | $$$$_  $$$$| $$__/   | $$      | $$      | $$  | $$| $$  $$$| $$| $$__/            | $$  | $$  | $$
+  | $$$/ \  $$$| $$      | $$      | $$    $$| $$  | $$| $$\  $ | $$| $$               | $$  | $$  | $$
+  | $$/   \  $$| $$$$$$$$| $$$$$$$$|  $$$$$$/|  $$$$$$/| $$ \/  | $$| $$$$$$$$         | $$  |  $$$$$$/
+  |__/     \__/|________/|________/ \______/  \______/ |__/     |__/|________/         |__/   \______/
+)" << std::endl;
+
+
+	SettingGame::setColor(BLACK, YELLOW);
+	cout << R"(
+   /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$   /$$$$$$  /$$   /$$ /$$   /$$        /$$$$$$  /$$        /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  /$$$$$$
+  | $$__  $$|_  $$_/| $$  /$$/ /$$__  $$ /$$__  $$| $$  | $$| $$  | $$       /$$__  $$| $$       /$$__  $$ /$$__  $$ /$$__  $$|_  $$_/ /$$__  $$
+  | $$  \ $$  | $$  | $$ /$$/ | $$  \ $$| $$  \__/| $$  | $$| $$  | $$      | $$  \__/| $$      | $$  \ $$| $$  \__/| $$  \__/  | $$  | $$  \__/
+  | $$$$$$$/  | $$  | $$$$$/  | $$$$$$$$| $$      | $$$$$$$$| $$  | $$      | $$      | $$      | $$$$$$$$|  $$$$$$ |  $$$$$$   | $$  | $$
+  | $$____/   | $$  | $$  $$  | $$__  $$| $$      | $$__  $$| $$  | $$      | $$      | $$      | $$__  $$ \____  $$ \____  $$  | $$  | $$
+  | $$        | $$  | $$\  $$ | $$  | $$| $$    $$| $$  | $$| $$  | $$      | $$    $$| $$      | $$  | $$ /$$  \ $$ /$$  \ $$  | $$  | $$    $$
+  | $$       /$$$$$$| $$ \  $$| $$  | $$|  $$$$$$/| $$  | $$|  $$$$$$/      |  $$$$$$/| $$$$$$$$| $$  | $$|  $$$$$$/|  $$$$$$/ /$$$$$$|  $$$$$$/
+  |__/      |______/|__/  \__/|__/  |__/ \______/ |__/  |__/ \______/        \______/ |________/|__/  |__/ \______/  \______/ |______/ \______/
+)" << std::endl;
+
+	SettingGame::setColor(BLACK, LIGHTBLUE);
+	
+    cout << R"(
+
+     _____ _____ _____ _   _   _____ _   _
+    / ____|_   _/ ____| \ | | |_   _| \ | |
+   | (___   | || |  __|  \| |   | | |  \| |
+    \___ \  | || | |_ | . ` |   | | | . ` |
+    ____) |_| || |__| | |\  |  _| |_| |\  |
+   |_____/|_____\_____|_| \_|_|_____|_| \_|  _ _____
+     ___     / ____|_   _/ ____| \ | | | |  | |  __ \
+    ( _ )   | (___   | || |  __|  \| | | |  | | |__) |
+    / _ \/\  \___ \  | || | |_ | . ` | | |  | |  ___/
+   | (_>  <  ____) |_| || |__| | |\  | | |__| | |
+    \___/\/ |_____/|_____\_____|_| \_|  \____/|_|
+)" << endl;
+
+
+	SettingGame::setColor(BLACK, BLUE);
+	SettingGame::gotoXY(70, 26);
+	std::cout << "USERNAME: ";
+	
+	SettingGame::gotoXY(70, 30);
+	std::cout << "PASSWORD: ";
+
+	
+}
+
 void Menu::printLogo(){
-	//SettingGame::clearConsole();
+	SettingGame::clearConsole();
 
 	SettingGame::setColor(BLACK, YELLOW);
 	// pokemon 44x 5;
 	std::cout << R"(
-				                                  ,'\
-				    _.----.        ____         ,'  _\   ___    ___     ____
-				_,-'       `.     |    |  /`.   \,-'    |   \  /   |   |    \  |`.
-				\      __    \    '-.  | /   `.  ___    |    \/    |   '-.   \ |  |
-				 \.    \ \   |  __  |  |/    ,','_  `.  |          | __  |    \|  |
-				   \    \/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |
-				    \     ,-'/  /   \    ,'   | \/ / ,`.|         /  /   \  |     |
-				     \    \ |   \_/  |   `-.  \    `'  /|  |    ||   \_/  | |\    |
-				      \    \ \      /       `-.`.___,-' |  |\  /| \      /  | |   |
-				       \    \ `.__,'|  |`-._    `|      |__| \/ |  `.__,'|  | |   |
-				        \_.-'       |__|    `-._ |              '-.|     '-.| |   |
-				                                `'                            '-._|
-)" << "\n";
+
+   /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$   /$$$$$$  /$$   /$$ /$$   /$$        /$$$$$$  /$$        /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  /$$$$$$
+  | $$__  $$|_  $$_/| $$  /$$/ /$$__  $$ /$$__  $$| $$  | $$| $$  | $$       /$$__  $$| $$       /$$__  $$ /$$__  $$ /$$__  $$|_  $$_/ /$$__  $$
+  | $$  \ $$  | $$  | $$ /$$/ | $$  \ $$| $$  \__/| $$  | $$| $$  | $$      | $$  \__/| $$      | $$  \ $$| $$  \__/| $$  \__/  | $$  | $$  \__/
+  | $$$$$$$/  | $$  | $$$$$/  | $$$$$$$$| $$      | $$$$$$$$| $$  | $$      | $$      | $$      | $$$$$$$$|  $$$$$$ |  $$$$$$   | $$  | $$
+  | $$____/   | $$  | $$  $$  | $$__  $$| $$      | $$__  $$| $$  | $$      | $$      | $$      | $$__  $$ \____  $$ \____  $$  | $$  | $$
+  | $$        | $$  | $$\  $$ | $$  | $$| $$    $$| $$  | $$| $$  | $$      | $$    $$| $$      | $$  | $$ /$$  \ $$ /$$  \ $$  | $$  | $$    $$
+  | $$       /$$$$$$| $$ \  $$| $$  | $$|  $$$$$$/| $$  | $$|  $$$$$$/      |  $$$$$$/| $$$$$$$$| $$  | $$|  $$$$$$/|  $$$$$$/ /$$$$$$|  $$$$$$/
+  |__/      |______/|__/  \__/|__/  |__/ \______/ |__/  |__/ \______/        \______/ |________/|__/  |__/ \______/  \______/ |______/ \______/	
+	)";
+//	std::cout << R"(
+//				                                  ,'\
+//				    _.----.        ____         ,'  _\   ___    ___     ____
+//				_,-'       `.     |    |  /`.   \,-'    |   \  /   |   |    \  |`.
+//				\      __    \    '-.  | /   `.  ___    |    \/    |   '-.   \ |  |
+//				 \.    \ \   |  __  |  |/    ,','_  `.  |          | __  |    \|  |
+//				   \    \/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |
+//				    \     ,-'/  /   \    ,'   | \/ / ,`.|         /  /   \  |     |
+//				     \    \ |   \_/  |   `-.  \    `'  /|  |    ||   \_/  | |\    |
+//				      \    \ \      /       `-.`.___,-' |  |\  /| \      /  | |   |
+//				       \    \ `.__,'|  |`-._    `|      |__| \/ |  `.__,'|  | |   |
+//				        \_.-'       |__|    `-._ |              '-.|     '-.| |   |
+//				                                `'                            '-._|
+//)" << "\n";
 
 }
 
 void Menu::printLeaderBoard(){
-    Player Toprank[100];
-	int cnt = 0;
+//    //Player Toprank[100];
+//	int cnt = 0;
+	account Toprank[100];
+	int stt = 0;
 	std::ifstream fs;
-	fs.open("toprank.txt", ios::in);
-	//if(!ifs) std::cout << " NOt read" ;
-	while(!fs.eof()){
-		std::cout << "Loading";
-		getline(fs, Toprank[cnt].name);
-		getline(fs, Toprank[cnt].password);
-		fs >> Toprank[cnt].mode;
-		fs >> Toprank[cnt].score;
-		fs.ignore();
-		cnt++;
-		//std::cout << cnt << endl;
-	}
-//	if(!ifs) std::cout << " NOt read" ;
-	fs.close();
+	ifstream ifs("rank.txt", ios::in);
+    while(!ifs.eof()){
+        ifs >> Toprank[stt].Name;
+        ifs.ignore();
+        ifs >> Toprank[stt].Pass;
+        ifs.ignore();
+        ifs >> Toprank[stt].Mode;
+        ifs.ignore();
+        ifs >> Toprank[stt].Score;
+        ifs.ignore();
+        stt++;
+    }
+    ifs.close();
 
 	SettingGame::clearConsole();
 	sound::leaderboard();
     SettingGame::setColor(BLACK, YELLOW);
 	cout << R"(
-	  _      ______          _____  ______ _____  ____   ____          _____  _____
-	 | |    |  ____|   /\   |  __ \|  ____|  __ \|  _ \ / __ \   /\   |  __ \|  __ \
-	 | |    | |__     /  \  | |  | | |__  | |__) | |_) | |  | | /  \  | |__) | |  | |
-	 | |    |  __|   / /\ \ | |  | |  __| |  _  /|  _ <| |  | |/ /\ \ |  _  /| |  | |
-	 | |____| |____ / ____ \| |__| | |____| | \ \| |_) | |__| / ____ \| | \ \| |__| |
-	 |______|______/_/    \_\_____/|______|_|  \_\____/ \____/_/    \_\_|  \_\_____/
+
+   /$$       /$$$$$$$$  /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$$ 
+  | $$      | $$_____/ /$$__  $$| $$__  $$| $$_____/| $$__  $$| $$__  $$ /$$__  $$ /$$__  $$| $$__  $$| $$__  $$
+  | $$      | $$      | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$  \ $$| $$  \ $$| $$  \ $$| $$  \ $$| $$  \ $$
+  | $$      | $$$$$   | $$$$$$$$| $$  | $$| $$$$$   | $$$$$$$/| $$$$$$$ | $$  | $$| $$$$$$$$| $$$$$$$/| $$  | $$
+  | $$      | $$__/   | $$__  $$| $$  | $$| $$__/   | $$__  $$| $$__  $$| $$  | $$| $$__  $$| $$__  $$| $$  | $$
+  | $$      | $$      | $$  | $$| $$  | $$| $$      | $$  \ $$| $$  \ $$| $$  | $$| $$  | $$| $$  \ $$| $$  | $$
+  | $$$$$$$$| $$$$$$$$| $$  | $$| $$$$$$$/| $$$$$$$$| $$  | $$| $$$$$$$/|  $$$$$$/| $$  | $$| $$  | $$| $$$$$$$/
+  |________/|________/|__/  |__/|_______/ |________/|__/  |__/|_______/  \______/ |__/  |__/|__/  |__/|_______/ 
+                                                                                                                                                                                                                                                                                                                                            
 	)";
 
     SettingGame::setColor(BLACK, WHITE);
@@ -72,9 +144,9 @@ void Menu::printLeaderBoard(){
 	SettingGame::gotoXY(40, 10);
 	std::cout << "SCORE";
 
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < min(10, stt); i++){
 		SettingGame::gotoXY(30, 12 + i * 2);
-		switch(Toprank[i].mode){
+		switch(Toprank[i].Mode){
 			case 1:{
 			    SettingGame::gotoXY(30, 12 + i * 2);
 				SettingGame::setColor(BLACK, WHITE);
@@ -98,10 +170,10 @@ void Menu::printLeaderBoard(){
         std::cout << (i + 1);
 
 		SettingGame::gotoXY(10, 12 + i * 2);
-		std::cout << Toprank[i].name;
+		std::cout << Toprank[i].Name;
 
 		SettingGame::gotoXY(40, 12 + i * 2);
-		std::cout << Toprank[i].score;
+		std::cout << Toprank[i].Score;
 	}
 
   //  SettingGame::gotoXY(60, 80);
@@ -163,7 +235,7 @@ void Menu::printButton(int _x, int _y, int Cells, int type, COORD Pos){
 	}
 }
 
-void Menu::printMenu(){
+void Menu::printMenu(account& newAccount){
 	SettingGame::clearConsole();
 	int Row = 21, Col = 12; // kích thước ô
 	short _x = 66 - Row / 2, _y = 20 - Col / 2;
@@ -195,7 +267,7 @@ void Menu::printMenu(){
 				SettingGame::clearConsole();
 					switch(Pos.Y){
 						case 15:{
-							Menu::printGameMode();
+							Menu::printGameMode(newAccount);
 							break;
 						}
 						case 21:{
@@ -266,7 +338,7 @@ void Menu::printTutorial(){
 	while(SettingGame::getConsoleInput() != KEY_ESC);
 }
 
-void Menu::printGameMode(){
+void Menu::printGameMode(account& newAccount){
 	COORD Pos = {56, 15};
 	COORD oldPos = {0, 0};
 	int Row = 21, Col = 12;
@@ -286,6 +358,7 @@ void Menu::printGameMode(){
 			oldPos = Pos;
 
 		switch(SettingGame::getConsoleInput()){
+//			sound::choose();
 			case KEY_UP:{
 				Pos.Y = max(15, Pos.Y - 6);
 				break;
@@ -301,21 +374,35 @@ void Menu::printGameMode(){
 				SettingGame::clearConsole();
 					switch(Pos.Y){
 						case 15:{
-							NoobMode::NoobPlay();
+							newAccount.Mode = 1;
+							NoobMode::NoobPlay(newAccount);
 							break;
 						}
 						case 21:{
-							ProMode::ProPlay();
+							newAccount.Mode = 2;
+							ProMode::ProPlay(newAccount);
 							break;
 						}
 						case 27:{
 //							Menu::printCustomMode();
-							int row, col;
-							std::cout << "Input Row: ";
+							int row, col, mode, RemoveType;
+							std::cout << "Input Row (Max = 7):  ";
 							cin >> row;
-							std::cout << "Input Col: ";
+							std::cout << "Input Col (Max = 12): ";
 							cin >> col;
-							CustomMode::CustomPlay(row, col);
+							std::cout << "Che do tang hinh (1: Yes / 0: NO)\n";
+							cin >> mode;
+							std::cout << "kieu xoa:\n"
+									  << "0. Binh thuong\n"
+									  << "1. Thut sang trai\n"
+									  << "2. Thut len tren\n"
+									  << "3. Thut sang phai\n"
+									  << "4. Thut xuong duoi\n"
+									  << "Khac: Van su tuy duyen\n"
+									  << "Lua chon cua ban: ";
+							std::cin >> RemoveType;
+							newAccount.Mode = 3;
+							CustomMode::CustomPlay(row, col, newAccount, !mode, RemoveType);
 							break;
 						}
 						case 33:{
@@ -333,93 +420,94 @@ void Menu::printGameMode(){
 	}
 }
 
-void Menu::printCustomMode(){
-	COORD Pos = {56, 15};
-	COORD oldPos = {0, 0};
-	int Row = 21, Col = 12;
-	int row = -22127439, col = -22127050;
-	short _x = 66 - Row / 2, _y = 20 - Col / 2;
-
-	SettingGame::clearConsole();
-	Menu::printLogo();
-	Menu::printButton(_x, _y, 4, 3, Pos);
-	
-	bool out = false;
-	while(!out){
-		if(oldPos.X != Pos.X || oldPos.Y != Pos.Y){
-			SettingGame::clearConsole();
-			Menu::printLogo();
-			Menu::printButton(_x, _y, 4, 3, Pos);
-			if(0 < row && row < 8){
-				SettingGame::gotoXY(66, 15);
-				std::cout << row;
-			}
-			if(0 < col && col < 14){
-				SettingGame::gotoXY(66, 21);
-				std::cout << col;
-			}	
-		}
-		else
-			oldPos = Pos;
-
-		switch(SettingGame::getConsoleInput()){
-			case KEY_UP:{
-				Pos.Y = max(15, Pos.Y - 6);
-				break;
-			}
-
-			case KEY_DOWN:{
-				Pos.Y = min(Pos.Y + 6, 33);
-				break;
-			}
-
-			case KEY_SPACE:{
-				if(Pos.Y == 0) break;
-				SettingGame::clearConsole();
-					switch(Pos.Y){
-						case 15:{
-							std::cin >> row;
-							SettingGame::gotoXY(66, 15);
-							std::cout << row;
-							break;
-						}
-						case 21:{
-							std::cin >> col;
-							SettingGame::gotoXY(66, 21);
-							std::cout << col;
-							break;
-						}
-						case 27:{
-//							Menu::printCustomMode();
-							if(0 < row && row < 8 && 0 < col && col < 14 && col != -22127050 && row != -22127439)
-								CustomMode::CustomPlay(row, col);
-							else{
-								SettingGame::setColor(BLACK, RED);
-								SettingGame::gotoXY(50, 60);
-								std::cout << "the value of column or row is invalid, again.";
-								SettingGame::gotoXY(50, 61);
-								std::cout << "remind: row is not less than 1 and greater than 8";
-								SettingGame::gotoXY(50, 62);
-								std::cout << "remind: column is not less than 1 and greater than 14";
-								SettingGame::setColor(BLACK, RED);
-							}
-							break;
-						}
-						case 33:{
-							out = true;
-							break;
-						}
-					}
+//void Menu::printCustomMode(account& newAccount){
+//	COORD Pos = {56, 15};
+//	COORD oldPos = {0, 0};
+//	int Row = 21, Col = 12;
+//	int row = -22127439, col = -22127050;
+//	short _x = 66 - Row / 2, _y = 20 - Col / 2;
 //
+//	SettingGame::clearConsole();
+//	Menu::printLogo();
+//	Menu::printButton(_x, _y, 4, 3, Pos);
+//	
+//	bool out = false;
+//	while(!out){
+//		if(oldPos.X != Pos.X || oldPos.Y != Pos.Y){
+//			SettingGame::clearConsole();
+//			Menu::printLogo();
+//			Menu::printButton(_x, _y, 4, 3, Pos);
+//			if(0 < row && row < 8){
+//				SettingGame::gotoXY(66, 15);
+//				std::cout << row;
+//			}
+//			if(0 < col && col < 14){
+//				SettingGame::gotoXY(66, 21);
+//				std::cout << col;
+//			}	
+//		}
+//		else
+//			oldPos = Pos;
+//
+//		switch(SettingGame::getConsoleInput()){
+////			sound::choose();
+//			case KEY_UP:{
+//				Pos.Y = max(15, Pos.Y - 6);
 //				break;
-			}
-			default:
-				break;
-		}
-	Menu::Slow();
-	}	
-	
-}
+//			}
+//
+//			case KEY_DOWN:{
+//				Pos.Y = min(Pos.Y + 6, 33);
+//				break;
+//			}
+//
+//			case KEY_SPACE:{
+//				if(Pos.Y == 0) break;
+//				SettingGame::clearConsole();
+//					switch(Pos.Y){
+//						case 15:{
+//							std::cin >> row;
+//							SettingGame::gotoXY(66, 15);
+//							std::cout << row;
+//							break;
+//						}
+//						case 21:{
+//							std::cin >> col;
+//							SettingGame::gotoXY(66, 21);
+//							std::cout << col;
+//							break;
+//						}
+//						case 27:{
+////							Menu::printCustomMode();
+//							if(0 < row && row < 8 && 0 < col && col < 14 && col != -22127050 && row != -22127439)
+//								CustomMode::CustomPlay(row, col, newAccount, mode);
+//							else{
+//								SettingGame::setColor(BLACK, RED);
+//								SettingGame::gotoXY(50, 60);
+//								std::cout << "the value of column or row is invalid, again.";
+//								SettingGame::gotoXY(50, 61);
+//								std::cout << "remind: row is not less than 1 and greater than 8";
+//								SettingGame::gotoXY(50, 62);
+//								std::cout << "remind: column is not less than 1 and greater than 14";
+//								SettingGame::setColor(BLACK, RED);
+//							}
+//							break;
+//						}
+//						case 33:{
+//							out = true;
+//							break;
+//						}
+//					}
+////
+////				break;
+//			}
+//			default:
+//				break;
+//		}
+//	Menu::Slow();
+//	}	
+//	
+//}
 
 void Menu::printVictory(){
     SettingGame::gotoXY(80, 8);
