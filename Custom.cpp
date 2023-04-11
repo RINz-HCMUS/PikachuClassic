@@ -2,12 +2,7 @@
 
 //#include "Noob.h"
 
-void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int RemoveType){
-	
-	sound::start();
-	int Type = rand() % 150;
-	if(!Type)
-		Type++;
+void CustomMode::CustomPlay(int row, int col){
 	//int row = 6, col = 6;
 	Board A(row, col, 150);
 	while(!A.checkBoard())
@@ -25,33 +20,13 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
             	
     SettingGame::clearConsole();
     
-    //sound::start();
+    sound::start();
     
 	SettingGame::setColor(BLACK, WHITE);
-	BG::drawBG(Type);
-    A.drawBoard(mode);
-	
-	SettingGame::setColor(BLACK, LIGHTYELLOW);
-	SettingGame::gotoXY(150, 14);
-	std::cout << "Hi, ";
-	SettingGame::setColor(BLACK, YELLOW);
-	std::cout << newAccount.Name;
-	SettingGame::setColor(BLACK, LIGHTYELLOW);
-	SettingGame::gotoXY(150, 16);
-	std::cout << "Your score: " << Score;
-	SettingGame::gotoXY(150, 18);
-	std::cout << "Press 'H' to get suggestion";
-	
-	SettingGame::gotoXY(155, 20);
-	std::cout << "(-700 points)";
-	
-	SettingGame::gotoXY(150, 22);
-	std::cout << "Press 'R' to shuffe board";
-	
-	SettingGame::gotoXY(155, 24);
-	std::cout << "(-200 points)";
+    A.drawBoard(1);
+
     SettingGame::setColor(BLACK, GREEN);
-    A.drawCells(A._board[0][0], 0, 0, mode);
+    A.drawCells(A._board[0][0], 0, 0, 1);
     SettingGame::setColor(BLACK, WHITE);
     
     while(CompleteCells != row * col){
@@ -152,11 +127,11 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
                     A.drawCells(A._board[X][Y], X, Y, 1);
                     std::vector<std::pair<int,int>> Path;
                     if((Xchoose != X || Ychoose != Y) && A.Board::canConnect(std::make_pair(X, Y), std::make_pair(Xchoose, Ychoose), Path)){
-						Score += 400;
+						Score += 200;
 						CompleteCells += 2;
 						A.drawLine(Path);
 						Sleep(20);
-						switch(RemoveType){
+						switch(rand() % 5){
 							case 0:{
 								A.removeBoard_0({X, Y}, {Xchoose, Ychoose});
 								break;
@@ -177,48 +152,23 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
 								A.removeBoard_4({X, Y}, {Xchoose, Ychoose});
 								break;
 							}
-							default:{
-								int tmp = rand() % 5;
-								switch(tmp){
-									case 0:{
-										A.removeBoard_0({X, Y}, {Xchoose, Ychoose});
-										break;
-									}
-									case 1:{
-										A.removeBoard_1({X, Y}, {Xchoose, Ychoose});
-										break;
-									}
-									case 2:{
-										A.removeBoard_2({X, Y}, {Xchoose, Ychoose});
-										break;
-									}
-									case 3:{
-										A.removeBoard_3({X, Y}, {Xchoose, Ychoose});
-										break;
-									}
-									case 4:{
-										A.removeBoard_4({X, Y}, {Xchoose, Ychoose});
-										break;
-									}
-								}
-								break;
-							}
-                        	choose = false;
-                   		}
-                    }
-                    else{
+						}
                         choose = false;
                     }
-                    
+                    else{
+//                        SettingGame::setColor(BLACK, WHITE);
+//                        A.drawCells(A._board[X][Y], X, Y);
+//                        A.drawCells(A._board[Xchoose][Ychoose], Xchoose, Ychoose);
+                        choose = false;
+                    }
                     while(CompleteCells <= row * col - 2 && !A.checkBoard())
                     	A.suffleBoard();
-                    	
                     SettingGame::setColor(BLACK, WHITE);
                     SettingGame::clearConsole();
                     SettingGame::setColor(BLACK, WHITE);
-                    A.drawBoard(mode);
+                    A.drawBoard(1);
                     SettingGame::setColor(BLACK, WHITE);
-                    A.drawCells(A._board[oldX][oldY], oldX, oldY, mode);
+                    A.drawCells(A._board[oldX][oldY], oldX, oldY, 1);
                     SettingGame::setColor(BLACK, GREEN);				// Ô đang tr
                     A.drawCells(A._board[X][Y], X, Y, 1);
                     oldX = X;
@@ -228,8 +178,8 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
             }
 
             case KEY_ESC:{
-                //A.~Board();
-                return;
+                A.~Board();
+                break;
             }
             
             case KEY_SUGGEST:{
@@ -244,7 +194,7 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
 			
 			case KEY_SHUFFLE:{
 				A.Board::suffleBoard();
-				A.drawBoard(mode);
+				A.drawBoard(1);
 				break;
 			}
         }
@@ -254,9 +204,9 @@ void CustomMode::CustomPlay(int row, int col, account& newAccount, int mode, int
             SettingGame::setColor(BLACK, WHITE);
             //SettingGame::clearConsole();
             SettingGame::setColor(BLACK, WHITE);
-            A.drawBoard(mode);
+            A.drawBoard(1);
             SettingGame::setColor(BLACK, WHITE);
-            A.drawCells(A._board[oldX][oldY], oldX, oldY, mode);
+            A.drawCells(A._board[oldX][oldY], oldX, oldY, 1);
             SettingGame::setColor(BLACK, GREEN);				// Ô đang trỏ vào
             A.drawCells(A._board[X][Y], X, Y, 1);
             oldX = X;
